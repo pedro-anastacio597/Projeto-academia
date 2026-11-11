@@ -10,6 +10,7 @@ import {
   HeartPulse,
   History,
   Home,
+<<<<<<< HEAD
   LayoutDashboard,
   LogOut,
   Menu,
@@ -18,6 +19,14 @@ import {
 } from "lucide-react";
 import { SideDrawer } from "./overlays";
 import { actions, homePath, initials, useAppState, currentUser, type User } from "@/lib/store";
+=======
+  LogOut,
+  Menu,
+  Wallet,
+} from "lucide-react";
+import { SideDrawer } from "./overlays";
+import { actions, initials, useAppState, currentUser, type User } from "@/lib/store";
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 import { GYM_NAME, getPlan, fmtDate } from "@/lib/gym-data";
 import { cn } from "@/lib/utils";
 
@@ -42,17 +51,23 @@ const MENU = [
   { to: "/historico", label: "Histórico", icon: History },
 ] as const;
 
+<<<<<<< HEAD
 const TRAINER_MENU = [
   { to: "/professor", label: "Painel", icon: LayoutDashboard },
   { to: "/professor/alunos", label: "Alunos", icon: Users },
 ] as const;
 
+=======
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 function ProfileMenu({ user, onClose }: { user: User; onClose: () => void }) {
   const path = useRouterState({ select: (r) => r.location.pathname });
   const navigate = useNavigate();
   const plan = getPlan(user.plan);
+<<<<<<< HEAD
   const trainer = user.role === "professor";
   const menu = trainer ? TRAINER_MENU : MENU;
+=======
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   return (
     <div className="flex min-h-full flex-col">
       <div className="relative overflow-hidden bg-card-glow px-6 pb-6 pt-8">
@@ -68,6 +83,7 @@ function ProfileMenu({ user, onClose }: { user: User; onClose: () => void }) {
           </div>
           <div className="min-w-0">
             <p className="truncate text-lg font-bold">{user.name.split(" ")[0]}</p>
+<<<<<<< HEAD
             {trainer ? (
               <>
                 <p className="text-sm font-semibold text-primary">Professor</p>
@@ -83,6 +99,14 @@ function ProfileMenu({ user, onClose }: { user: User; onClose: () => void }) {
                 </p>
               </>
             )}
+=======
+            <p className={cn("text-sm font-semibold", user.planStatus === "ativo" ? "text-success" : "text-destructive")}>
+              {user.planStatus === "ativo" ? "Ativo" : "Plano cancelado"}
+            </p>
+            <p className="truncate text-xs text-muted-foreground">
+              {plan.name} · até {fmtDate(user.planEnd)}
+            </p>
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
           </div>
         </div>
         <div className="mt-6 flex items-center justify-between border-t border-border pt-4 text-sm">
@@ -95,8 +119,13 @@ function ProfileMenu({ user, onClose }: { user: User; onClose: () => void }) {
       </div>
 
       <nav className="flex flex-1 flex-col gap-1 py-3 pr-4">
+<<<<<<< HEAD
         {menu.map((m) => {
           const active = path === m.to || (m.to !== "/inicio" && m.to !== "/professor" && path.startsWith(m.to));
+=======
+        {MENU.map((m) => {
+          const active = path === m.to || (m.to !== "/inicio" && path.startsWith(m.to));
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
           return (
             <Link
               key={m.to}
@@ -149,6 +178,7 @@ export function AppShell({
   const s = useAppState();
   const user = currentUser(s);
   const navigate = useNavigate();
+<<<<<<< HEAD
   const path = useRouterState({ select: (r) => r.location.pathname });
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -162,6 +192,15 @@ export function AppShell({
   }, [s.ready, user, wrongArea, navigate]);
 
   if (!s.ready || !user || wrongArea) {
+=======
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (s.ready && !user) navigate({ to: "/login" });
+  }, [s.ready, user, navigate]);
+
+  if (!s.ready || !user) {
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
     return (
       <div className="grid h-full place-items-center">
         <Dumbbell className="h-8 w-8 animate-pulse text-primary" />

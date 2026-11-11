@@ -2,7 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CalendarCheck, Clock, Dumbbell, Flame } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { getWorkout } from "@/lib/gym-data";
+<<<<<<< HEAD
 import { historyOf, streak, useAppState } from "@/lib/store";
+=======
+import { streak, useAppState } from "@/lib/store";
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 import { formatClock } from "@/lib/workout";
 
 export const Route = createFileRoute("/historico")({
@@ -23,6 +27,7 @@ function HistoryPage() {
   const s = useAppState();
   return (
     <AppShell title="Histórico">
+<<<<<<< HEAD
       {(user) => {
         const history = historyOf(s, user.email);
         const totalMin = Math.round(history.reduce((a, h) => a + h.durationSec, 0) / 60);
@@ -39,6 +44,23 @@ function HistoryPage() {
             ) : (
               <div className="space-y-3">
                 {history.map((h) => {
+=======
+      {() => {
+        const totalMin = Math.round(s.history.reduce((a, h) => a + h.durationSec, 0) / 60);
+        return (
+          <div className="px-5 pb-10 pt-6">
+            <div className="grid grid-cols-3 gap-2">
+              <Stat icon={CalendarCheck} label="Treinos" value={String(s.history.length)} />
+              <Stat icon={Flame} label="Sequência" value={`${streak(s.history)}d`} />
+              <Stat icon={Clock} label="Minutos" value={String(totalMin)} />
+            </div>
+            <h2 className="mb-3 mt-7 font-display text-2xl tracking-wide">Treinos concluídos</h2>
+            {s.history.length === 0 ? (
+              <p className="rounded-3xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">Nenhum treino concluído ainda.</p>
+            ) : (
+              <div className="space-y-3">
+                {s.history.map((h) => {
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
                   const w = getWorkout(h.workoutId);
                   const d = new Date(h.date);
                   return (

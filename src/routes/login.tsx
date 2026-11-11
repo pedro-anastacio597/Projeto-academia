@@ -4,7 +4,11 @@ import { Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
 import { AuthLayout, Field, inputClass } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
 import { actions, currentUser, getSnapshot, homePath } from "@/lib/store";
+=======
+import { actions } from "@/lib/store";
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -41,7 +45,11 @@ function Login() {
     }
     const err = actions.login(email, password);
     if (err) return setErrors({ form: err });
+<<<<<<< HEAD
     navigate({ to: homePath(currentUser(getSnapshot())) });
+=======
+    navigate({ to: "/inicio" });
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   };
 
   return (
@@ -68,6 +76,7 @@ function Login() {
           }}
           className="w-full rounded-xl border border-dashed border-border py-2.5 text-xs text-muted-foreground"
         >
+<<<<<<< HEAD
           Usar conta de aluno (maria@forja.com · 123456)
         </button>
         <button
@@ -79,6 +88,9 @@ function Login() {
           className="w-full rounded-xl border border-dashed border-primary/50 py-2.5 text-xs text-muted-foreground"
         >
           Usar conta de professor (prof@forja.com · 123456)
+=======
+          Usar conta de demonstração (maria@forja.com · 123456)
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
         </button>
       </form>
       <p className="mt-5 text-center text-sm text-muted-foreground">

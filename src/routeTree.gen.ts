@@ -18,12 +18,17 @@ import { Route as AvaliacoesIndexRouteImport } from './routes/avaliacoes.index'
 import { Route as AvaliacoesAvaliacaoIdRouteImport } from './routes/avaliacoes.$avaliacaoId'
 import { Route as PlanoIndexRouteImport } from './routes/plano.index'
 import { Route as PlanoDetalhesRouteImport } from './routes/plano.detalhes'
+<<<<<<< HEAD
 import { Route as ProfessorIndexRouteImport } from './routes/professor.index'
 import { Route as TreinosIndexRouteImport } from './routes/treinos.index'
 import { Route as TreinosTreinoIdRouteImport } from './routes/treinos.$treinoId'
 import { Route as ProfessorAlunosIndexRouteImport } from './routes/professor.alunos.index'
 import { Route as ProfessorAlunosAlunoIdRouteImport } from './routes/professor.alunos.$alunoId'
 import { Route as ProfessorTreinoAlunoIdTreinoIdRouteImport } from './routes/professor.treino.$alunoId.$treinoId'
+=======
+import { Route as TreinosIndexRouteImport } from './routes/treinos.index'
+import { Route as TreinosTreinoIdRouteImport } from './routes/treinos.$treinoId'
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,11 +75,14 @@ const PlanoDetalhesRoute = PlanoDetalhesRouteImport.update({
   path: '/plano/detalhes',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const ProfessorIndexRoute = ProfessorIndexRouteImport.update({
   id: '/professor/',
   path: '/professor/',
   getParentRoute: () => rootRouteImport,
 } as any)
+=======
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 const TreinosIndexRoute = TreinosIndexRouteImport.update({
   id: '/treinos/',
   path: '/treinos/',
@@ -85,6 +93,7 @@ const TreinosTreinoIdRoute = TreinosTreinoIdRouteImport.update({
   path: '/treinos/$treinoId',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const ProfessorAlunosIndexRoute = ProfessorAlunosIndexRouteImport.update({
   id: '/professor/alunos/',
   path: '/professor/alunos/',
@@ -101,6 +110,8 @@ const ProfessorTreinoAlunoIdTreinoIdRoute =
     path: '/professor/treino/$alunoId/$treinoId',
     getParentRoute: () => rootRouteImport,
   } as any)
+=======
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -113,11 +124,15 @@ export interface FileRoutesByFullPath {
   '/treinos/$treinoId': typeof TreinosTreinoIdRoute
   '/avaliacoes/': typeof AvaliacoesIndexRoute
   '/plano/': typeof PlanoIndexRoute
+<<<<<<< HEAD
   '/professor/': typeof ProfessorIndexRoute
   '/treinos/': typeof TreinosIndexRoute
   '/professor/alunos/$alunoId': typeof ProfessorAlunosAlunoIdRoute
   '/professor/alunos/': typeof ProfessorAlunosIndexRoute
   '/professor/treino/$alunoId/$treinoId': typeof ProfessorTreinoAlunoIdTreinoIdRoute
+=======
+  '/treinos/': typeof TreinosIndexRoute
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -130,11 +145,15 @@ export interface FileRoutesByTo {
   '/treinos/$treinoId': typeof TreinosTreinoIdRoute
   '/avaliacoes': typeof AvaliacoesIndexRoute
   '/plano': typeof PlanoIndexRoute
+<<<<<<< HEAD
   '/professor': typeof ProfessorIndexRoute
   '/treinos': typeof TreinosIndexRoute
   '/professor/alunos/$alunoId': typeof ProfessorAlunosAlunoIdRoute
   '/professor/alunos': typeof ProfessorAlunosIndexRoute
   '/professor/treino/$alunoId/$treinoId': typeof ProfessorTreinoAlunoIdTreinoIdRoute
+=======
+  '/treinos': typeof TreinosIndexRoute
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -148,11 +167,15 @@ export interface FileRoutesById {
   '/treinos/$treinoId': typeof TreinosTreinoIdRoute
   '/avaliacoes/': typeof AvaliacoesIndexRoute
   '/plano/': typeof PlanoIndexRoute
+<<<<<<< HEAD
   '/professor/': typeof ProfessorIndexRoute
   '/treinos/': typeof TreinosIndexRoute
   '/professor/alunos/$alunoId': typeof ProfessorAlunosAlunoIdRoute
   '/professor/alunos/': typeof ProfessorAlunosIndexRoute
   '/professor/treino/$alunoId/$treinoId': typeof ProfessorTreinoAlunoIdTreinoIdRoute
+=======
+  '/treinos/': typeof TreinosIndexRoute
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -167,11 +190,15 @@ export interface FileRouteTypes {
     | '/treinos/$treinoId'
     | '/avaliacoes/'
     | '/plano/'
+<<<<<<< HEAD
     | '/professor/'
     | '/treinos/'
     | '/professor/alunos/$alunoId'
     | '/professor/alunos/'
     | '/professor/treino/$alunoId/$treinoId'
+=======
+    | '/treinos/'
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -184,11 +211,15 @@ export interface FileRouteTypes {
     | '/treinos/$treinoId'
     | '/avaliacoes'
     | '/plano'
+<<<<<<< HEAD
     | '/professor'
     | '/treinos'
     | '/professor/alunos/$alunoId'
     | '/professor/alunos'
     | '/professor/treino/$alunoId/$treinoId'
+=======
+    | '/treinos'
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   id:
     | '__root__'
     | '/'
@@ -201,11 +232,15 @@ export interface FileRouteTypes {
     | '/treinos/$treinoId'
     | '/avaliacoes/'
     | '/plano/'
+<<<<<<< HEAD
     | '/professor/'
     | '/treinos/'
     | '/professor/alunos/$alunoId'
     | '/professor/alunos/'
     | '/professor/treino/$alunoId/$treinoId'
+=======
+    | '/treinos/'
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -219,11 +254,15 @@ export interface RootRouteChildren {
   TreinosTreinoIdRoute: typeof TreinosTreinoIdRoute
   AvaliacoesIndexRoute: typeof AvaliacoesIndexRoute
   PlanoIndexRoute: typeof PlanoIndexRoute
+<<<<<<< HEAD
   ProfessorIndexRoute: typeof ProfessorIndexRoute
   TreinosIndexRoute: typeof TreinosIndexRoute
   ProfessorAlunosAlunoIdRoute: typeof ProfessorAlunosAlunoIdRoute
   ProfessorAlunosIndexRoute: typeof ProfessorAlunosIndexRoute
   ProfessorTreinoAlunoIdTreinoIdRoute: typeof ProfessorTreinoAlunoIdTreinoIdRoute
+=======
+  TreinosIndexRoute: typeof TreinosIndexRoute
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 }
 
 declare module '@tanstack/react-router' {
@@ -291,6 +330,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlanoDetalhesRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/professor/': {
       id: '/professor/'
       path: '/professor'
@@ -298,6 +338,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfessorIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+=======
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
     '/treinos/': {
       id: '/treinos/'
       path: '/treinos'
@@ -312,6 +354,7 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TreinosTreinoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/professor/alunos/': {
       id: '/professor/alunos/'
       path: '/professor/alunos'
@@ -333,6 +376,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfessorTreinoAlunoIdTreinoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+=======
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   }
 }
 
@@ -347,11 +392,15 @@ const rootRouteChildren: RootRouteChildren = {
   TreinosTreinoIdRoute: TreinosTreinoIdRoute,
   AvaliacoesIndexRoute: AvaliacoesIndexRoute,
   PlanoIndexRoute: PlanoIndexRoute,
+<<<<<<< HEAD
   ProfessorIndexRoute: ProfessorIndexRoute,
   TreinosIndexRoute: TreinosIndexRoute,
   ProfessorAlunosAlunoIdRoute: ProfessorAlunosAlunoIdRoute,
   ProfessorAlunosIndexRoute: ProfessorAlunosIndexRoute,
   ProfessorTreinoAlunoIdTreinoIdRoute: ProfessorTreinoAlunoIdTreinoIdRoute,
+=======
+  TreinosIndexRoute: TreinosIndexRoute,
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

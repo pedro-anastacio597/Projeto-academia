@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { WORKOUTS, getWorkout, type Exercise, type Workout } from "./gym-data";
 import type { CustomExercise, User } from "./store";
+=======
+import type { Exercise } from "./gym-data";
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 
 /** Reps planned for a given set index ("12/10/8" -> set 2 = 8). Non-numeric (e.g. "40s") -> 0. */
 export function repsForSet(reps: string, setIndex: number) {
@@ -40,6 +44,7 @@ export function groupExercises(exercises: Exercise[]) {
   }
   return blocks;
 }
+<<<<<<< HEAD
 
 /** Todos os exercícios existentes nos treinos padrão, sem repetir o mesmo id. */
 export const CATALOG: Exercise[] = [...new Map(WORKOUTS.flatMap((w) => w.exercises).map((e) => [e.id, e] as const)).values()];
@@ -68,3 +73,5 @@ export function workoutFor(user: User | null | undefined, id: string): Workout |
   );
   return { ...base, exercises };
 }
+=======
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d

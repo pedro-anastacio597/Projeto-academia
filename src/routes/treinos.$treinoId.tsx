@@ -7,8 +7,13 @@ import { ExerciseCard, weightsLabel } from "@/components/ExerciseCard";
 import { BottomSheet, ConfirmModal, Modal, VideoModal } from "@/components/overlays";
 import { Button } from "@/components/ui/button";
 import { getWorkout, type Exercise } from "@/lib/gym-data";
+<<<<<<< HEAD
 import { actions, useCurrentUser } from "@/lib/store";
 import { formatClock, groupExercises, repsForSet, volumeKg, workoutFor } from "@/lib/workout";
+=======
+import { actions } from "@/lib/store";
+import { formatClock, groupExercises, repsForSet, volumeKg } from "@/lib/workout";
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/treinos/$treinoId")({
@@ -46,8 +51,12 @@ function useNow(active: boolean) {
 
 function WorkoutPage() {
   const { treinoId } = Route.useParams();
+<<<<<<< HEAD
   const me = useCurrentUser();
   const workout = useMemo(() => workoutFor(me, treinoId)!, [me, treinoId]);
+=======
+  const workout = getWorkout(treinoId)!;
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   const navigate = useNavigate();
 
   const [startedAt, setStartedAt] = useState<number | null>(null);

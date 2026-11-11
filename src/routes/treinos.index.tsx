@@ -2,9 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ChevronRight, PersonStanding } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+<<<<<<< HEAD
 import { WORKOUTS, WORKOUT_TYPES, WEEK_NAMES } from "@/lib/gym-data";
 import { scheduleOf } from "@/lib/store";
 import { workoutFor } from "@/lib/workout";
+=======
+import { WORKOUTS, WORKOUT_TYPES, WEEK_SCHEDULE, WEEK_NAMES } from "@/lib/gym-data";
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 
 export const Route = createFileRoute("/treinos/")({
   head: () => ({
@@ -23,6 +27,7 @@ export const Route = createFileRoute("/treinos/")({
 function Workouts() {
   const [today, setToday] = useState<number | null>(null);
   useEffect(() => setToday(new Date().getDay()), []);
+<<<<<<< HEAD
 
   return (
     <AppShell title="Treinos">
@@ -30,6 +35,13 @@ function Workouts() {
         const schedule = scheduleOf(user);
         const currentId = today === null ? null : (schedule[today] ?? null);
         return (
+=======
+  const currentId = today === null ? null : WEEK_SCHEDULE[today];
+
+  return (
+    <AppShell title="Treinos">
+      {() => (
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
         <div className="px-5 pb-10 pt-6">
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">Ficha atual</p>
           <h2 className="font-display text-4xl tracking-wide">Hipertrofia · Fase 2</h2>
@@ -46,8 +58,12 @@ function Workouts() {
                 </div>
                 <div className="space-y-3">
                   {list.map((w) => {
+<<<<<<< HEAD
                     const count = (workoutFor(user, w.id) ?? w).exercises.length;
                     const days = schedule.map((id, i) => (id === w.id ? WEEK_NAMES[i].slice(0, 3) : null)).filter(Boolean);
+=======
+                    const days = WEEK_SCHEDULE.map((id, i) => (id === w.id ? WEEK_NAMES[i].slice(0, 3) : null)).filter(Boolean);
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
                     return (
                       <Link
                         key={w.id}
@@ -70,7 +86,11 @@ function Workouts() {
                             ))}
                           </div>
                           <p className="mt-1.5 text-xs text-muted-foreground">
+<<<<<<< HEAD
                             {count} exercícios · {days.join(", ")}
+=======
+                            {w.exercises.length} exercícios · {days.join(", ")}
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
                           </p>
                         </div>
                         <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground" />
@@ -82,8 +102,12 @@ function Workouts() {
             );
           })}
         </div>
+<<<<<<< HEAD
         );
       }}
+=======
+      )}
+>>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
     </AppShell>
   );
 }
