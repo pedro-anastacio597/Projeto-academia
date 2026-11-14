@@ -4,17 +4,18 @@ import { Check } from "lucide-react";
 import { z } from "zod";
 import { AuthLayout, Field, inputClass } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/button";
-import { actions } from "@/lib/store";
+import { SEX_LABEL, actions, type Sex } from "@/lib/store";
 import { PLANS, brl, type PlanId } from "@/lib/gym-data";
+import { formatPhone, onlyDigits } from "@/lib/phone";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/cadastro")({
   head: () => ({
     meta: [
       { title: "Criar conta — FORJA Academia" },
-      { name: "description", content: "Cadastre-se com nome, e-mail, senha e escolha seu plano." },
+      { name: "description", content: "Cadastre-se com nome, e-mail, telefone, sexo, senha e escolha seu plano." },
       { property: "og:title", content: "Criar conta — FORJA Academia" },
-      { property: "og:description", content: "Cadastre-se com nome, e-mail, senha e escolha seu plano." },
+      { property: "og:description", content: "Cadastre-se com nome, e-mail, telefone, sexo, senha e escolha seu plano." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -25,15 +26,19 @@ export const Route = createFileRoute("/cadastro")({
 const schema = z.object({
   name: z.string().trim().min(3, "Informe seu nome completo").max(80),
   email: z.string().trim().email("Informe um e-mail válido").max(255),
+  phone: z.string().refine((v) => [10, 11].includes(onlyDigits(v).length), "Informe um telefone com DDD"),
+  sex: z.enum(["feminino", "masculino", "outro"], { message: "Informe o sexo" }),
   password: z.string().min(6, "A senha precisa ter ao menos 6 caracteres").max(64),
   plan: z.enum(["mensal", "trimestral", "anual"], { message: "Escolha um plano" }),
 });
 
 function Signup() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", password: "", plan: "" as PlanId | "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", sex: "" as Sex | "", password: "", plan: "" as PlanId | "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const setPhone = (e: React.ChangeEvent<HTMLInputElement>) => setForm((f) => ({ ...f, phone: formatPhone(e.target.value) }));
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +62,33 @@ function Signup() {
         <Field label="E-mail" error={errors.email}>
           <input className={inputClass} type="email" autoComplete="email" placeholder="voce@email.com" value={form.email} onChange={set("email")} />
         </Field>
+        <Field label="Telefone" error={errors.phone}>
+          <input className={inputClass} type="tel" inputMode="tel" autoComplete="tel" placeholder="(84) 99999-9999" value={form.phone} onChange={setPhone} />
+        </Field>
+        <div>
+          <span className="mb-1.5 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">Sexo</span>
+          <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Sexo">
+            {(Object.keys(SEX_LABEL) as Sex[]).map((k) => {
+              const active = form.sex === k;
+              return (
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={active}
+                  key={k}
+                  onClick={() => setForm((f) => ({ ...f, sex: k }))}
+                  className={cn(
+                    "h-11 rounded-2xl border text-sm font-semibold transition",
+                    active ? "border-primary bg-accent" : "border-border bg-background/60 text-muted-foreground",
+                  )}
+                >
+                  {SEX_LABEL[k]}
+                </button>
+              );
+            })}
+          </div>
+          {errors.sex && <span className="mt-1 block text-xs font-medium text-destructive">{errors.sex}</span>}
+        </div>
         <Field label="Senha" error={errors.password}>
           <input className={inputClass} type="password" autoComplete="new-password" placeholder="Mínimo 6 caracteres" value={form.password} onChange={set("password")} />
         </Field>

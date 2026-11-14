@@ -1,17 +1,37 @@
 import { useSyncExternalStore } from "react";
-<<<<<<< HEAD
-import { WEEK_SCHEDULE, type PlanId } from "./gym-data";
-=======
-import type { PlanId } from "./gym-data";
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
+import { EVALUATIONS, WEEK_SCHEDULE, type Evaluation, type Exercise, type PlanId } from "./gym-data";
 
 /**
  * Prototype-only local store (persists in the browser via localStorage).
  * No real authentication or backend: swap for Lovable Cloud to go live.
  */
 
-<<<<<<< HEAD
 export type Role = "aluno" | "professor";
+
+export type Sex = "feminino" | "masculino" | "outro";
+export const SEX_LABEL: Record<Sex, string> = { feminino: "Feminino", masculino: "Masculino", outro: "Outro" };
+
+/** Sexo das contas de demonstração (também aplicado a contas antigas salvas no navegador). */
+const DEMO_SEX: Record<string, Sex> = {
+  "maria@forja.com": "feminino",
+  "prof@forja.com": "masculino",
+  "lucas@forja.com": "masculino",
+  "ana@forja.com": "feminino",
+  "bruno@forja.com": "masculino",
+  "carla@forja.com": "feminino",
+  "diego@forja.com": "masculino",
+};
+
+/** Telefone das contas de demonstração (também aplicado a contas antigas salvas no navegador). */
+const DEMO_PHONE: Record<string, string> = {
+  "maria@forja.com": "(84) 99811-2034",
+  "prof@forja.com": "(84) 99922-1000",
+  "lucas@forja.com": "(84) 99733-4521",
+  "ana@forja.com": "(84) 99644-7810",
+  "bruno@forja.com": "(84) 99555-3392",
+  "carla@forja.com": "(84) 99466-0187",
+  "diego@forja.com": "(84) 99377-6645",
+};
 
 /** Exercício de um treino personalizado pelo professor (o resto vem do catálogo, pelo exId). */
 export type CustomExercise = {
@@ -30,11 +50,12 @@ export type User = {
   schedule?: (string | null)[];
   /** Treinos que o professor personalizou para este aluno (id do treino -> exercícios). */
   customWorkouts?: Record<string, CustomExercise[]>;
-=======
-export type User = {
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   name: string;
   email: string;
+  /** Ausente em contas antigas. */
+  sex?: Sex;
+  /** Telefone com DDD, já formatado. */
+  phone?: string;
   password: string;
   plan: PlanId;
   planStart: string; // YYYY-MM-DD
@@ -44,11 +65,8 @@ export type User = {
 
 export type HistoryEntry = {
   id: string;
-<<<<<<< HEAD
   /** E-mail do aluno que fez o treino (ausente em registros antigos). */
   email?: string;
-=======
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   workoutId: string;
   date: string; // ISO datetime
   durationSec: number;
@@ -63,6 +81,10 @@ export type AppState = {
   currentEmail: string | null;
   history: HistoryEntry[];
   likes: string[];
+  /** Exercícios criados pelo professor (somam-se aos exercícios dos treinos padrão). */
+  catalog: Exercise[];
+  /** Avaliações físicas de cada aluno (chave = e-mail em minúsculas), da mais recente para a mais antiga. */
+  evaluations: Record<string, Evaluation[]>;
 };
 
 const KEY = "forja-app-v1";
@@ -85,7 +107,6 @@ function seed(): AppState {
     d.setHours(h, 15, 0, 0);
     return d.toISOString();
   };
-<<<<<<< HEAD
   const ymd = (offset: number) => {
     const d = new Date(now);
     d.setDate(d.getDate() + offset);
@@ -95,6 +116,8 @@ function seed(): AppState {
     name,
     email,
     password: "123456",
+    sex: DEMO_SEX[email],
+    phone: DEMO_PHONE[email],
     plan,
     planStart: ymd(startOffset),
     planEnd: endYmd,
@@ -137,38 +160,18 @@ function seed(): AppState {
       ...sessions("bruno@forja.com", [[14, "a", 50, 7600], [16, "b", 44, 3600]]),
       ...sessions("carla@forja.com", [[21, "e", 40, 0]]),
       ...sessions("diego@forja.com", [[12, "a", 57, 8800], [14, "d", 49, 2900], [19, "b", 46, 3700]]),
-=======
-  return {
-    ready: true,
-    users: [
-      {
-        name: "Maria Nogueira",
-        email: "maria@forja.com",
-        password: "123456",
-        plan: "trimestral",
-        planStart: startYmd,
-        planEnd: addMonths(startYmd, 3),
-        planStatus: "ativo",
-      },
-    ],
-    currentEmail: null,
-    history: [
-      { id: "h1", workoutId: "b", date: daysAgo(1), durationSec: 52 * 60, done: 3, total: 3, volumeKg: 4180 },
-      { id: "h2", workoutId: "a", date: daysAgo(2), durationSec: 61 * 60, done: 4, total: 4, volumeKg: 9620 },
-      { id: "h3", workoutId: "e", date: daysAgo(5), durationSec: 38 * 60, done: 3, total: 3, volumeKg: 0 },
-      { id: "h4", workoutId: "d", date: daysAgo(6), durationSec: 47 * 60, done: 4, total: 4, volumeKg: 2860 },
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
     ],
     likes: [],
+    catalog: [],
+    evaluations: { "maria@forja.com": EVALUATIONS },
   };
 }
 
-const SERVER_STATE: AppState = { ready: false, users: [], currentEmail: null, history: [], likes: [] };
+const SERVER_STATE: AppState = { ready: false, users: [], currentEmail: null, history: [], likes: [], catalog: [], evaluations: {} };
 
 let state: AppState | null = null;
 const listeners = new Set<() => void>();
 
-<<<<<<< HEAD
 /**
  * Contas salvas por versões antigas do protótipo: adiciona a conta do professor e os alunos de
  * demonstração que ainda não existem e associa treinos antigos (sem e-mail) à conta de demonstração.
@@ -180,20 +183,18 @@ function migrate(s: AppState): AppState {
   const addedEmails = new Set(added.map((u) => u.email));
   const history = s.history.map((h) => (h.email ? h : { ...h, email: "maria@forja.com" }));
   const extra = base.history.filter((h) => h.email && addedEmails.has(h.email));
-  return { ...s, users: [...s.users, ...added], history: [...history, ...extra] };
+  const users = s.users.map((u) => {
+    const k = u.email.toLowerCase();
+    return { ...u, sex: u.sex ?? DEMO_SEX[k], phone: u.phone ?? DEMO_PHONE[k] };
+  });
+  return { ...s, users: [...users, ...added], history: [...history, ...extra] };
 }
 
-=======
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 function load(): AppState {
   if (state) return state;
   try {
     const raw = window.localStorage.getItem(KEY);
-<<<<<<< HEAD
     state = raw ? migrate({ ...seed(), ...JSON.parse(raw), ready: true }) : seed();
-=======
-    state = raw ? { ...seed(), ...JSON.parse(raw), ready: true } : seed();
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   } catch {
     state = seed();
   }
@@ -224,7 +225,6 @@ export function currentUser(s: AppState) {
   return s.users.find((u) => u.email === s.currentEmail) ?? null;
 }
 
-<<<<<<< HEAD
 /** Estado atual sem hook (útil logo depois de uma ação, ex.: após o login). */
 export const getSnapshot = () => load();
 
@@ -239,8 +239,6 @@ export const scheduleOf = (u: User): (string | null)[] => u.schedule ?? WEEK_SCH
 /** Treinos concluídos por um aluno específico. */
 export const historyOf = (s: AppState, email: string) => s.history.filter((h) => h.email === email);
 
-=======
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 export function useCurrentUser() {
   return currentUser(useAppState());
 }
@@ -253,7 +251,7 @@ export const actions = {
     update((st) => ({ ...st, currentEmail: u.email }));
     return null;
   },
-  register(data: { name: string; email: string; password: string; plan: PlanId; months: number }): string | null {
+  register(data: { name: string; email: string; sex: Sex; phone: string; password: string; plan: PlanId; months: number }): string | null {
     const s = load();
     const email = data.email.trim().toLowerCase();
     if (s.users.some((u) => u.email.toLowerCase() === email)) return "Este e-mail já está cadastrado.";
@@ -261,6 +259,8 @@ export const actions = {
     const user: User = {
       name: data.name.trim(),
       email,
+      sex: data.sex,
+      phone: data.phone,
       password: data.password,
       plan: data.plan,
       planStart: today,
@@ -274,14 +274,10 @@ export const actions = {
     update((st) => ({ ...st, currentEmail: null }));
   },
   addHistory(entry: Omit<HistoryEntry, "id">) {
-<<<<<<< HEAD
     update((st) => ({
       ...st,
       history: [{ ...entry, id: crypto.randomUUID(), email: st.currentEmail ?? entry.email }, ...st.history],
     }));
-=======
-    update((st) => ({ ...st, history: [{ ...entry, id: crypto.randomUUID() }, ...st.history] }));
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   },
   toggleLike(postId: string) {
     update((st) => ({
@@ -289,7 +285,21 @@ export const actions = {
       likes: st.likes.includes(postId) ? st.likes.filter((x) => x !== postId) : [...st.likes, postId],
     }));
   },
-<<<<<<< HEAD
+  /** Professor registra uma nova avaliação física para o aluno. */
+  addEvaluation(email: string, ev: Evaluation) {
+    const key = email.toLowerCase();
+    update((st) => ({
+      ...st,
+      evaluations: {
+        ...(st.evaluations ?? {}),
+        [key]: [ev, ...(st.evaluations?.[key] ?? [])].sort((a, b) => b.date.localeCompare(a.date)),
+      },
+    }));
+  },
+  /** Professor cria um exercício novo, que passa a aparecer na lista de exercícios disponíveis. */
+  addCatalogExercise(ex: Exercise) {
+    update((st) => ({ ...st, catalog: [...(st.catalog ?? []), ex] }));
+  },
   /** Usado pelo professor para alterar dados de um aluno (ex.: a agenda de treinos). */
   updateStudent(email: string, patch: Partial<User>) {
     update((st) => ({
@@ -297,8 +307,6 @@ export const actions = {
       users: st.users.map((u) => (u.email === email ? { ...u, ...patch } : u)),
     }));
   },
-=======
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
   updateUser(patch: Partial<User>) {
     update((st) => ({
       ...st,
@@ -347,3 +355,8 @@ export const initials = (name: string) =>
     .slice(0, 2)
     .map((p) => p[0]!.toUpperCase())
     .join("");
+
+/** Avaliações físicas do aluno, da mais recente para a mais antiga. */
+export function evaluationsOf(s: AppState, email: string): Evaluation[] {
+  return s.evaluations?.[email.toLowerCase()] ?? [];
+}

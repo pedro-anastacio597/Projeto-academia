@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import { WORKOUTS, getWorkout, type Exercise, type Workout } from "./gym-data";
-import type { CustomExercise, User } from "./store";
-=======
-import type { Exercise } from "./gym-data";
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
+import { getSnapshot, type CustomExercise, type User } from "./store";
 
 /** Reps planned for a given set index ("12/10/8" -> set 2 = 8). Non-numeric (e.g. "40s") -> 0. */
 export function repsForSet(reps: string, setIndex: number) {
@@ -44,12 +40,34 @@ export function groupExercises(exercises: Exercise[]) {
   }
   return blocks;
 }
-<<<<<<< HEAD
 
-/** Todos os exercícios existentes nos treinos padrão, sem repetir o mesmo id. */
-export const CATALOG: Exercise[] = [...new Map(WORKOUTS.flatMap((w) => w.exercises).map((e) => [e.id, e] as const)).values()];
+/** Exercícios dos treinos padrão, sem repetir o mesmo id. */
+const BASE_CATALOG: Exercise[] = [...new Map(WORKOUTS.flatMap((w) => w.exercises).map((e) => [e.id, e] as const)).values()];
 
-export const catalogExercise = (id: string) => CATALOG.find((e) => e.id === id);
+/** Exercícios criados pelo professor (ficam no estado salvo do app). */
+function createdExercises(): Exercise[] {
+  return typeof window === "undefined" ? [] : (getSnapshot().catalog ?? []);
+}
+
+/** Todos os exercícios disponíveis: os dos treinos padrão + os criados pelo professor. */
+export const getCatalog = (): Exercise[] => [...BASE_CATALOG, ...createdExercises()];
+
+/** @deprecated use getCatalog(): esta lista não inclui os exercícios criados. */
+export const CATALOG = BASE_CATALOG;
+
+export const catalogExercise = (id: string) => getCatalog().find((e) => e.id === id);
+
+/** Grupos musculares existentes, em ordem alfabética. */
+export const muscleGroups = () => [...new Set(getCatalog().map((e) => e.muscle))].sort((a, b) => a.localeCompare(b, "pt-BR"));
+
+/** Imagem e vídeo de demonstração de um exercício novo: emprestados de um exercício do mesmo grupo. */
+export function mediaForMuscle(muscle: string) {
+  const ref = BASE_CATALOG.find((e) => e.muscle.toLowerCase() === muscle.trim().toLowerCase()) ?? BASE_CATALOG[0]!;
+  return { image: ref.image, video: ref.video };
+}
+
+/** Minúsculas e sem acento, para a busca. */
+export const normalize = (t: string) => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
 /** Converte um exercício do catálogo na forma salva para o aluno. */
 export function toCustom(e: Exercise): CustomExercise {
@@ -73,5 +91,3 @@ export function workoutFor(user: User | null | undefined, id: string): Workout |
   );
   return { ...base, exercises };
 }
-=======
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d

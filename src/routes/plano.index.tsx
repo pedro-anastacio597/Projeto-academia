@@ -47,13 +47,8 @@ function PlanPage() {
                 <PlanStatus status={user.planStatus} />
                 <ChevronRight className="h-5 w-5 text-muted-foreground" />
               </div>
-<<<<<<< HEAD
               <p className="mt-3 font-display text-2xl leading-none tracking-wide">{plan.name}</p>
               <div className="mt-3 space-y-1.5 text-xs">
-=======
-              <p className="mt-3 font-display text-4xl leading-none tracking-wide">{plan.name}</p>
-              <div className="mt-4 space-y-2 text-sm">
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
                 <Row label="Vencimento" value={fmtDate(user.planEnd)} />
                 <Row label="Valor mensal" value={brl(plan.monthly)} />
               </div>
@@ -62,31 +57,18 @@ function PlanPage() {
                   <div className="h-2 overflow-hidden rounded-full bg-surface">
                     <div className="h-full rounded-full bg-gradient-primary" style={{ width: `${pct}%` }} />
                   </div>
-<<<<<<< HEAD
                   <p className="mt-1.5 text-[11px] text-muted-foreground">
-=======
-                  <p className="mt-1.5 text-xs text-muted-foreground">
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
                     {left >= 0 ? `Faltam ${left} dias para o vencimento` : "Plano vencido"}
                   </p>
                 </div>
               )}
               <div className="mt-5 border-t border-border pt-4">
-<<<<<<< HEAD
                 <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Modalidades</p>
                 <div className="mt-2 flex items-center gap-3 rounded-2xl bg-surface p-3">
                   <span className="grid h-10 w-10 place-items-center rounded-full bg-primary"><Dumbbell className="h-5 w-5" /></span>
                   <div>
                     <p className="text-sm font-semibold">Musculação</p>
                     <p className="text-[11px] text-muted-foreground">Dias e horários livres</p>
-=======
-                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Modalidades</p>
-                <div className="mt-2 flex items-center gap-3 rounded-2xl bg-surface p-3">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-primary"><Dumbbell className="h-5 w-5" /></span>
-                  <div>
-                    <p className="font-semibold">Musculação</p>
-                    <p className="text-xs text-muted-foreground">Dias e horários livres</p>
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
                   </div>
                 </div>
               </div>

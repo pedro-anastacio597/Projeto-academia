@@ -4,14 +4,9 @@ import { Bell, Flame, Heart, Moon, Play, Quote, Timer } from "lucide-react";
 import { AppShell, HeaderIcon } from "@/components/AppShell";
 import { WeekStrip } from "@/components/WeekStrip";
 import { Button } from "@/components/ui/button";
-<<<<<<< HEAD
 import { POSTS, WEEK_NAMES } from "@/lib/gym-data";
 import { workoutFor } from "@/lib/workout";
 import { actions, historyOf, scheduleOf, streak, trainedDaysThisWeek, useAppState } from "@/lib/store";
-=======
-import { POSTS, WEEK_NAMES, WEEK_SCHEDULE, getWorkout } from "@/lib/gym-data";
-import { actions, streak, trainedDaysThisWeek, useAppState } from "@/lib/store";
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -50,18 +45,11 @@ function Home() {
       }
     >
       {(user) => {
-<<<<<<< HEAD
         const myHistory = historyOf(s, user.email);
         const trained = trainedDaysThisWeek(myHistory);
         const st = streak(myHistory);
         const workoutId = today === null ? null : (scheduleOf(user)[today] ?? null);
         const workout = workoutId ? workoutFor(user, workoutId) : undefined;
-=======
-        const trained = trainedDaysThisWeek(s.history);
-        const st = streak(s.history);
-        const workoutId = today === null ? null : WEEK_SCHEDULE[today];
-        const workout = workoutId ? getWorkout(workoutId) : undefined;
->>>>>>> 9e0916ba01f5f41dd129bef358dff57b51ae646d
         const doneToday = today !== null && trained.has(today);
         return (
           <div className="space-y-6 px-5 pb-10 pt-6">

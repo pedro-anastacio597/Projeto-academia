@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight, Info } from "lucide-react";
 import { Delta } from "@/components/Delta";
 import { AppShell } from "@/components/AppShell";
-import { EVALUATIONS, bmi, fmtDate } from "@/lib/gym-data";
+import { bmi, fmtDate } from "@/lib/gym-data";
+import { evaluationsOf, useAppState } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/avaliacoes/")({
@@ -20,14 +21,20 @@ export const Route = createFileRoute("/avaliacoes/")({
 });
 
 function Evaluations() {
+  const s = useAppState();
   return (
     <AppShell title="Avaliação física">
-      {() => (
+      {(user) => {
+        const EVALUATIONS = evaluationsOf(s, user.email);
+        return (
         <div className="space-y-4 px-5 pb-10 pt-6">
           <p className="flex items-start gap-2 rounded-2xl bg-accent/60 p-3 text-xs text-muted-foreground">
             <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
             As avaliações são registradas pelos professores da academia após cada consulta.
           </p>
+          {EVALUATIONS.length === 0 && (
+            <p className="rounded-3xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">Nenhuma avaliação registrada ainda.</p>
+          )}
           {EVALUATIONS.map((e, i) => {
             const prev = EVALUATIONS[i + 1];
             return (
@@ -54,7 +61,8 @@ function Evaluations() {
             );
           })}
         </div>
-      )}
+        );
+      }}
     </AppShell>
   );
 }

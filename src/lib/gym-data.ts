@@ -164,9 +164,11 @@ export type Evaluation = {
   weight: number;
   height: number;
   bodyFat: number;
-  leanMass: number;
-  visceralFat: number;
+  leanMass?: number;
+  visceralFat?: number;
   restingHr: number;
+  /** Problemas físicos relatados ou observados na avaliação (vazio = nenhum). */
+  issues: string[];
   measures: { label: string; value: number }[];
   notes: string;
   goal: string;
@@ -182,6 +184,7 @@ export const EVALUATIONS: Evaluation[] = [
     bodyFat: 22.4,
     leanMass: 49.8,
     visceralFat: 4,
+    issues: ["Dor lombar leve ao agachar", "Desconforto no joelho direito"],
     restingHr: 64,
     measures: [
       { label: "Braço", value: 28.5 },
@@ -203,6 +206,7 @@ export const EVALUATIONS: Evaluation[] = [
     bodyFat: 24.9,
     leanMass: 49.4,
     visceralFat: 5,
+    issues: ["Dor lombar leve ao agachar", "Desconforto no joelho direito", "Tendinite no ombro esquerdo"],
     restingHr: 68,
     measures: [
       { label: "Braço", value: 28 },
@@ -224,6 +228,7 @@ export const EVALUATIONS: Evaluation[] = [
     bodyFat: 27.1,
     leanMass: 49.2,
     visceralFat: 6,
+    issues: ["Dor lombar", "Desconforto no joelho direito", "Tendinite no ombro esquerdo"],
     restingHr: 72,
     measures: [
       { label: "Braço", value: 27.5 },
@@ -237,6 +242,9 @@ export const EVALUATIONS: Evaluation[] = [
     goal: "Adaptação e condicionamento",
   },
 ];
+
+/** Medidas corporais (cm) sempre exibidas, na ordem da avaliação; as não registradas aparecem como "- -". */
+export const MEASURE_LABELS = ["Braço", "Ombro", "Cintura", "Abdômen", "Quadril", "Coxa", "Panturrilha"];
 
 export function bmi(e: Pick<Evaluation, "weight" | "height">) {
   return e.weight / (e.height * e.height);

@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowDown, ArrowUp, ChevronDown, ChevronUp, Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { getWorkout } from "@/lib/gym-data";
 import { actions, useAppState, type CustomExercise, type User } from "@/lib/store";
-import { CATALOG, catalogExercise, toCustom } from "@/lib/workout";
+import { catalogExercise, getCatalog, toCustom } from "@/lib/workout";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/professor/treino/$alunoId/$treinoId")({
@@ -43,7 +43,6 @@ function Editor({ alunoId, treinoId, openId, setOpenId }: { alunoId: string; tre
   const custom = student.customWorkouts?.[treinoId];
   const list: CustomExercise[] = custom ?? base.exercises.map(toCustom);
   const used = new Set(list.map((c) => c.exId));
-  const available = CATALOG.filter((e) => !used.has(e.id));
 
   const save = (next: CustomExercise[]) =>
     actions.updateStudent(student.email, { customWorkouts: { ...(student.customWorkouts ?? {}), [treinoId]: next } });
@@ -87,7 +86,7 @@ function Editor({ alunoId, treinoId, openId, setOpenId }: { alunoId: string; tre
           const ce = catalogExercise(c.exId);
           if (!ce) return null;
           const open = openId === c.exId;
-          const swaps = CATALOG.filter((e) => e.id === c.exId || !used.has(e.id));
+          const swaps = getCatalog().filter((e) => e.id === c.exId || !used.has(e.id));
           return (
             <div key={c.exId} className={cn("overflow-hidden rounded-3xl border bg-card", open ? "border-primary/60" : "border-border")}>
               <button onClick={() => setOpenId(open ? null : c.exId)} className="flex w-full items-center gap-3 p-3 pr-4 text-left">
@@ -198,28 +197,13 @@ function Editor({ alunoId, treinoId, openId, setOpenId }: { alunoId: string; tre
         })}
       </div>
 
-      <div className="rounded-3xl border border-dashed border-border p-4">
-        <span className="mb-1 block text-xs font-semibold uppercase tracking-widest text-muted-foreground">Adicionar exercício</span>
-        <select
-          className={field}
-          value=""
-          disabled={available.length === 0}
-          onChange={(e) => {
-            const ex = catalogExercise(e.target.value);
-            if (!ex) return;
-            save([...list, toCustom(ex)]);
-            setOpenId(ex.id);
-            toast.success("Exercício adicionado", { description: ex.name });
-          }}
-        >
-          <option value="">{available.length ? "Escolha um exercício…" : "Todos os exercícios já estão no treino"}</option>
-          {available.map((e) => (
-            <option key={e.id} value={e.id}>
-              {e.name} ({e.muscle})
-            </option>
-          ))}
-        </select>
-      </div>
+      <Link
+        to="/professor/treino/$alunoId/$treinoId/adicionar"
+        params={{ alunoId, treinoId }}
+        className="flex h-14 w-full items-center justify-center gap-2 rounded-3xl border border-dashed border-primary/60 bg-primary/10 font-semibold text-primary transition active:scale-[0.99] hover:bg-primary/15"
+      >
+        <Plus className="h-5 w-5" /> Adicionar exercício
+      </Link>
     </div>
   );
 }
