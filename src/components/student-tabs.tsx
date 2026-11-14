@@ -93,7 +93,7 @@ export function TrainingTab({ row }: { row: StudentRow }) {
                 className="relative flex items-center gap-4 rounded-3xl border border-border bg-card p-3 pr-4 transition active:scale-[0.99] hover:border-primary/50"
               >
                 {custom && (
-                  <span className="absolute -top-2 right-4 rounded-full bg-primary px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider">Personalizado</span>
+                  <span className="absolute -top-2 right-4 rounded-full bg-primary text-primary-foreground px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider">Personalizado</span>
                 )}
                 <img src={w.cover} alt={w.name} loading="lazy" width={816} height={816} className="h-16 w-16 shrink-0 rounded-2xl object-cover" />
                 <div className="min-w-0 flex-1">
@@ -333,7 +333,7 @@ export function EvaluationTab({ user }: { user: User }) {
               <div key={e.id} className={cn("rounded-3xl border border-border bg-card", i === 0 && "bg-card-glow")}>
                 <button onClick={() => setOpenId(open ? null : e.id)} className="flex w-full items-start justify-between gap-3 p-5 text-left">
                   <div>
-                    {i === 0 && <span className="mb-2 inline-block rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">Mais recente</span>}
+                    {i === 0 && <span className="mb-2 inline-block rounded-full bg-primary text-primary-foreground px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">Mais recente</span>}
                     <p className="font-display text-3xl leading-none tracking-wide">{fmtDate(e.date)}</p>
                     <p className="mt-1 text-sm text-muted-foreground">Prof. {e.professor}</p>
                   </div>

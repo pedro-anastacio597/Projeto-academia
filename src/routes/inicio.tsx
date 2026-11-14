@@ -81,7 +81,7 @@ function Home() {
                 <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-card">
                   <img src={workout.cover} alt={workout.name} loading="lazy" width={816} height={816} className="h-40 w-full object-cover" />
                   <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-t from-card to-transparent" />
-                  <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wider">
+                  <span className="absolute right-4 top-4 rounded-full bg-primary text-primary-foreground px-3 py-1 text-xs font-bold uppercase tracking-wider">
                     {doneToday ? "Concluído" : "Atual"}
                   </span>
                   <div className="relative -mt-10 p-5 pt-0">
@@ -122,7 +122,7 @@ function Home() {
                   return (
                     <article key={p.id} className={cn("overflow-hidden rounded-3xl border border-border bg-card", i === 0 && "bg-card-glow")}>
                       <header className="flex items-center gap-3 px-5 pt-5">
-                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary font-display text-lg tracking-wider">{p.initials}</span>
+                        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground font-display text-lg tracking-wider">{p.initials}</span>
                         <div className="min-w-0">
                           <p className="truncate font-semibold">{p.author}</p>
                           <p className="text-xs text-muted-foreground">{p.role} · {p.date}</p>

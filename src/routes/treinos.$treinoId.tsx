@@ -111,7 +111,7 @@ function WorkoutPage() {
       back
       right={
         started ? (
-          <span className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 font-display text-lg tracking-wider">
+          <span className="flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-3 py-1.5 font-display text-lg tracking-wider">
             <Clock className="h-4 w-4" /> {formatClock(elapsed)}
           </span>
         ) : undefined
@@ -144,7 +144,7 @@ function WorkoutPage() {
                 <span className="text-muted-foreground">{Math.round(progress * 100)}%</span>
               </div>
               <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface">
-                <div className="h-full rounded-full bg-gradient-primary transition-all duration-500" style={{ width: `${progress * 100}%` }} />
+                <div className="h-full rounded-full bg-gradient-primary text-primary-foreground transition-all duration-500" style={{ width: `${progress * 100}%` }} />
               </div>
               <p className="mt-2 text-xs text-muted-foreground">Toque em um exercício para ver séries, pesos e concluir.</p>
             </div>
@@ -158,7 +158,7 @@ function WorkoutPage() {
             {blocks.map((b, bi) =>
               b.bisetId ? (
                 <div key={bi} className="overflow-hidden rounded-3xl border border-primary/60 bg-card">
-                  <div className="bg-primary py-1 text-center text-xs font-bold uppercase tracking-[0.25em]">Bi-set</div>
+                  <div className="bg-primary text-primary-foreground py-1 text-center text-xs font-bold uppercase tracking-[0.25em]">Bi-set</div>
                   <div className="divide-y divide-border">
                     {b.items.map((e, i) => (
                       <ExerciseCard key={e.id} flat badge={String.fromCharCode(65 + i)} exercise={e} interactive={started} completed={completed.includes(e.id)} onOpen={() => setOpenId(e.id)} onPlay={() => setVideo(e)} />
@@ -173,7 +173,7 @@ function WorkoutPage() {
 
           {restUntil && restLeft > 0 && (
             <div className="fixed inset-x-5 bottom-24 z-30 flex items-center gap-3 rounded-2xl border border-primary bg-card p-3 shadow-glow animate-in slide-in-from-bottom-4">
-              <span className="grid h-11 w-11 place-items-center rounded-full bg-primary"><Timer className="h-5 w-5" /></span>
+              <span className="grid h-11 w-11 place-items-center rounded-full bg-primary text-primary-foreground"><Timer className="h-5 w-5" /></span>
               <div className="flex-1">
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">Descanso</p>
                 <p className="font-display text-3xl leading-none tracking-wider">{formatClock(restLeft)}</p>
@@ -212,7 +212,7 @@ function WorkoutPage() {
           <Modal open={!!summary} onClose={() => navigate({ to: "/inicio" })} showClose={false}>
             {summary && (
               <div className="bg-card-glow p-6 text-center">
-                <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-gradient-primary shadow-glow"><Trophy className="h-8 w-8" /></span>
+                <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-gradient-primary text-primary-foreground shadow-glow"><Trophy className="h-8 w-8" /></span>
                 <h3 className="mt-4 font-display text-4xl tracking-wide">Treino concluído!</h3>
                 <p className="text-sm text-muted-foreground">Mandou bem. Mais um dia forjado.</p>
                 <div className="mt-5 grid grid-cols-3 gap-2">
@@ -264,7 +264,7 @@ function ExerciseDetail({
       <button onClick={onPlay} className="relative block h-44 w-full overflow-hidden rounded-3xl" aria-label="Ver vídeo">
         <img src={e.image} alt={e.name} width={816} height={816} className="h-full w-full object-cover" />
         <span className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-        <span className="absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-primary shadow-glow">
+        <span className="absolute left-1/2 top-1/2 grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow">
           <Play className="h-6 w-6 fill-current" />
         </span>
         <span className="absolute bottom-3 left-4 text-xs font-semibold uppercase tracking-widest">Ver demonstração</span>

@@ -307,6 +307,42 @@ export const actions = {
       users: st.users.map((u) => (u.email === email ? { ...u, ...patch } : u)),
     }));
   },
+  /** O próprio usuário edita seus dados pessoais. Trocar o e-mail leva junto histórico e avaliações. */
+  updateProfile(data: { name: string; email: string; phone: string; sex: Sex }): string | null {
+    const s = load();
+    const cur = currentUser(s);
+    if (!cur) return "Sessão expirada. Entre novamente.";
+    const email = data.email.trim().toLowerCase();
+    if (s.users.some((u) => u.email !== cur.email && u.email.toLowerCase() === email)) return "Este e-mail já está cadastrado.";
+    const old = cur.email;
+    update((st) => {
+      const evaluations = { ...(st.evaluations ?? {}) };
+      const oldKey = old.toLowerCase();
+      if (oldKey !== email && evaluations[oldKey]) {
+        evaluations[email] = evaluations[oldKey];
+        delete evaluations[oldKey];
+      }
+      return {
+        ...st,
+        currentEmail: email,
+        users: st.users.map((u) => (u.email === old ? { ...u, name: data.name.trim(), email, phone: data.phone, sex: data.sex } : u)),
+        history: st.history.map((h) => (h.email === old ? { ...h, email } : h)),
+        evaluations,
+      };
+    });
+    return null;
+  },
+  /** Troca a senha do usuário logado (exige a senha atual). */
+  changePassword(current: string, next: string): string | null {
+    const cur = currentUser(load());
+    if (!cur) return "Sessão expirada. Entre novamente.";
+    if (cur.password !== current) return "A senha atual está incorreta.";
+    update((st) => ({
+      ...st,
+      users: st.users.map((u) => (u.email === cur.email ? { ...u, password: next } : u)),
+    }));
+    return null;
+  },
   updateUser(patch: Partial<User>) {
     update((st) => ({
       ...st,

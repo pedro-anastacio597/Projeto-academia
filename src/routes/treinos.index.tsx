@@ -56,7 +56,7 @@ function Workouts() {
                         className="relative flex items-center gap-4 rounded-3xl border border-border bg-card p-3 pr-4 transition active:scale-[0.99] hover:border-primary/50"
                       >
                         {currentId === w.id && (
-                          <span className="absolute -top-2 right-4 rounded-full bg-primary px-3 py-0.5 text-xs font-bold uppercase tracking-wider">Atual</span>
+                          <span className="absolute -top-2 right-4 rounded-full bg-primary text-primary-foreground px-3 py-0.5 text-xs font-bold uppercase tracking-wider">Atual</span>
                         )}
                         <img src={w.cover} alt={w.name} loading="lazy" width={816} height={816} className="h-20 w-20 shrink-0 rounded-2xl object-cover" />
                         <div className="min-w-0 flex-1">

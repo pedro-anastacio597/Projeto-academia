@@ -109,7 +109,7 @@ function Signup() {
                     active ? "border-primary bg-accent" : "border-border bg-background/60",
                   )}
                 >
-                  <span className={cn("grid h-5 w-5 shrink-0 place-items-center rounded-full border-2", active ? "border-primary bg-primary" : "border-muted-foreground/50")}>
+                  <span className={cn("grid h-5 w-5 shrink-0 place-items-center rounded-full border-2", active ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/50")}>
                     {active && <Check className="h-3 w-3" />}
                   </span>
                   <span className="min-w-0 flex-1">

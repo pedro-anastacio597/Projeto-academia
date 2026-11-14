@@ -14,6 +14,7 @@ import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as HistoricoRouteImport } from './routes/historico'
 import { Route as InicioRouteImport } from './routes/inicio'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as AvaliacoesIndexRouteImport } from './routes/avaliacoes.index'
 import { Route as AvaliacoesAvaliacaoIdRouteImport } from './routes/avaliacoes.$avaliacaoId'
 import { Route as PlanoIndexRouteImport } from './routes/plano.index'
@@ -49,6 +50,11 @@ const InicioRoute = InicioRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AvaliacoesIndexRoute = AvaliacoesIndexRouteImport.update({
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/historico': typeof HistoricoRoute
   '/inicio': typeof InicioRoute
   '/login': typeof LoginRoute
+  '/perfil': typeof PerfilRoute
   '/avaliacoes/$avaliacaoId': typeof AvaliacoesAvaliacaoIdRoute
   '/plano/detalhes': typeof PlanoDetalhesRoute
   '/treinos/$treinoId': typeof TreinosTreinoIdRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/historico': typeof HistoricoRoute
   '/inicio': typeof InicioRoute
   '/login': typeof LoginRoute
+  '/perfil': typeof PerfilRoute
   '/avaliacoes/$avaliacaoId': typeof AvaliacoesAvaliacaoIdRoute
   '/plano/detalhes': typeof PlanoDetalhesRoute
   '/treinos/$treinoId': typeof TreinosTreinoIdRoute
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/historico': typeof HistoricoRoute
   '/inicio': typeof InicioRoute
   '/login': typeof LoginRoute
+  '/perfil': typeof PerfilRoute
   '/avaliacoes/$avaliacaoId': typeof AvaliacoesAvaliacaoIdRoute
   '/plano/detalhes': typeof PlanoDetalhesRoute
   '/treinos/$treinoId': typeof TreinosTreinoIdRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/inicio'
     | '/login'
+    | '/perfil'
     | '/avaliacoes/$avaliacaoId'
     | '/plano/detalhes'
     | '/treinos/$treinoId'
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/inicio'
     | '/login'
+    | '/perfil'
     | '/avaliacoes/$avaliacaoId'
     | '/plano/detalhes'
     | '/treinos/$treinoId'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/historico'
     | '/inicio'
     | '/login'
+    | '/perfil'
     | '/avaliacoes/$avaliacaoId'
     | '/plano/detalhes'
     | '/treinos/$treinoId'
@@ -227,6 +239,7 @@ export interface RootRouteChildren {
   HistoricoRoute: typeof HistoricoRoute
   InicioRoute: typeof InicioRoute
   LoginRoute: typeof LoginRoute
+  PerfilRoute: typeof PerfilRoute
   AvaliacoesAvaliacaoIdRoute: typeof AvaliacoesAvaliacaoIdRoute
   PlanoDetalhesRoute: typeof PlanoDetalhesRoute
   TreinosTreinoIdRoute: typeof TreinosTreinoIdRoute
@@ -275,6 +288,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/avaliacoes/': {
@@ -363,6 +383,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoricoRoute: HistoricoRoute,
   InicioRoute: InicioRoute,
   LoginRoute: LoginRoute,
+  PerfilRoute: PerfilRoute,
   AvaliacoesAvaliacaoIdRoute: AvaliacoesAvaliacaoIdRoute,
   PlanoDetalhesRoute: PlanoDetalhesRoute,
   TreinosTreinoIdRoute: TreinosTreinoIdRoute,

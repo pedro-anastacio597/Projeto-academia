@@ -13,6 +13,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  UserRound,
   Users,
   Wallet,
 } from "lucide-react";
@@ -40,11 +41,13 @@ const MENU = [
   { to: "/plano", label: "Plano", icon: Wallet },
   { to: "/avaliacoes", label: "Avaliação física", icon: HeartPulse },
   { to: "/historico", label: "Histórico", icon: History },
+  { to: "/perfil", label: "Meu perfil", icon: UserRound },
 ] as const;
 
 const TRAINER_MENU = [
   { to: "/professor", label: "Painel", icon: LayoutDashboard },
   { to: "/professor/alunos", label: "Alunos", icon: Users },
+  { to: "/perfil", label: "Meu perfil", icon: UserRound },
 ] as const;
 
 function ProfileMenu({ user, onClose }: { user: User; onClose: () => void }) {
@@ -56,7 +59,12 @@ function ProfileMenu({ user, onClose }: { user: User; onClose: () => void }) {
   return (
     <div className="flex min-h-full flex-col">
       <div className="relative overflow-hidden bg-card-glow px-6 pb-6 pt-8">
-        <div className="flex items-center gap-4">
+        <Link
+          to="/perfil"
+          onClick={onClose}
+          aria-label="Abrir meu perfil"
+          className="-m-2 flex items-center gap-4 rounded-2xl p-2 transition-colors hover:bg-foreground/5"
+        >
           <div className="relative">
             <Avatar name={user.name} className="h-16 w-16 text-2xl" />
             <span
@@ -84,7 +92,8 @@ function ProfileMenu({ user, onClose }: { user: User; onClose: () => void }) {
               </>
             )}
           </div>
-        </div>
+          <ChevronRight className="ml-auto h-5 w-5 shrink-0 text-muted-foreground" />
+        </Link>
         <div className="mt-6 flex items-center justify-between border-t border-border pt-4 text-sm">
           <div>
             <p className="text-xs text-muted-foreground">Você está em</p>
@@ -154,7 +163,9 @@ export function AppShell({
 
   // Cada perfil só enxerga a sua área: professor em /professor, aluno nas demais telas.
   const inTrainerArea = path.startsWith("/professor");
-  const wrongArea = !!user && (user.role === "professor") !== inTrainerArea;
+  // /perfil é compartilhado: aluno e professor acessam o próprio perfil.
+  const sharedArea = path === "/perfil" || path.startsWith("/perfil/");
+  const wrongArea = !!user && !sharedArea && (user.role === "professor") !== inTrainerArea;
 
   useEffect(() => {
     if (s.ready && !user) navigate({ to: "/login" });

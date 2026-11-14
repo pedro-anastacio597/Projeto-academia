@@ -55,7 +55,7 @@ function PlanPage() {
               {user.planStatus === "ativo" && (
                 <div className="mt-4">
                   <div className="h-2 overflow-hidden rounded-full bg-surface">
-                    <div className="h-full rounded-full bg-gradient-primary" style={{ width: `${pct}%` }} />
+                    <div className="h-full rounded-full bg-gradient-primary text-primary-foreground" style={{ width: `${pct}%` }} />
                   </div>
                   <p className="mt-1.5 text-[11px] text-muted-foreground">
                     {left >= 0 ? `Faltam ${left} dias para o vencimento` : "Plano vencido"}
@@ -65,7 +65,7 @@ function PlanPage() {
               <div className="mt-5 border-t border-border pt-4">
                 <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Modalidades</p>
                 <div className="mt-2 flex items-center gap-3 rounded-2xl bg-surface p-3">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-primary"><Dumbbell className="h-5 w-5" /></span>
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground"><Dumbbell className="h-5 w-5" /></span>
                   <div>
                     <p className="text-sm font-semibold">Musculação</p>
                     <p className="text-[11px] text-muted-foreground">Dias e horários livres</p>
@@ -101,7 +101,7 @@ function PlanPage() {
                           active ? "border-primary bg-accent" : "border-border bg-background/60",
                         )}
                       >
-                        <span className={cn("grid h-5 w-5 shrink-0 place-items-center rounded-full border-2", active ? "border-primary bg-primary" : "border-muted-foreground/50")}>
+                        <span className={cn("grid h-5 w-5 shrink-0 place-items-center rounded-full border-2", active ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/50")}>
                           {active && <Check className="h-3 w-3" />}
                         </span>
                         <span className="min-w-0 flex-1">

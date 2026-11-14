@@ -8,7 +8,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* FORJA design system — dark theme, red / white / black. */
+/* FORJA design system — dark theme, yellow / white / black. */
 
 @theme inline {
   --font-display: "Bebas Neue", "Impact", sans-serif;
@@ -67,19 +67,19 @@
   --radius: 1rem;
   --background: oklch(0.12 0 0);
   --foreground: oklch(0.98 0 0);
-  --card: oklch(0.18 0.004 20);
+  --card: oklch(0.18 0.004 92);
   --card-foreground: oklch(0.98 0 0);
-  --surface: oklch(0.23 0.006 20);
-  --popover: oklch(0.18 0.004 20);
+  --surface: oklch(0.23 0.006 92);
+  --popover: oklch(0.18 0.004 92);
   --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.6 0.235 27);
-  --primary-foreground: oklch(0.99 0 0);
-  --primary-glow: oklch(0.7 0.21 30);
-  --secondary: oklch(0.24 0.006 20);
+  --primary: oklch(0.83 0.15 92);
+  --primary-foreground: oklch(0.15 0 0);
+  --primary-glow: oklch(0.89 0.14 99);
+  --secondary: oklch(0.24 0.006 92);
   --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.22 0.004 20);
-  --muted-foreground: oklch(0.7 0.01 20);
-  --accent: oklch(0.28 0.06 27);
+  --muted: oklch(0.22 0.004 92);
+  --muted-foreground: oklch(0.7 0.01 92);
+  --accent: oklch(0.3 0.05 92);
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.99 0 0);
@@ -90,27 +90,27 @@
   --bezel: oklch(0.2 0 0);
   --border: oklch(1 0 0 / 9%);
   --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.6 0.235 27);
-  --chart-1: oklch(0.6 0.235 27);
+  --ring: oklch(0.83 0.15 92);
+  --chart-1: oklch(0.83 0.15 92);
   --chart-2: oklch(0.98 0 0);
-  --chart-3: oklch(0.7 0.21 30);
-  --chart-4: oklch(0.5 0.15 27);
-  --chart-5: oklch(0.7 0.01 20);
-  --sidebar: oklch(0.15 0.004 20);
+  --chart-3: oklch(0.89 0.14 99);
+  --chart-4: oklch(0.61 0.11 85);
+  --chart-5: oklch(0.7 0.01 92);
+  --sidebar: oklch(0.15 0.004 92);
   --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.6 0.235 27);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.24 0.006 20);
+  --sidebar-primary: oklch(0.83 0.15 92);
+  --sidebar-primary-foreground: oklch(0.15 0 0);
+  --sidebar-accent: oklch(0.24 0.006 92);
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(1 0 0 / 9%);
-  --sidebar-ring: oklch(0.6 0.235 27);
+  --sidebar-ring: oklch(0.83 0.15 92);
 
   --gradient-primary: linear-gradient(135deg, var(--primary), var(--primary-glow));
   --gradient-hero: linear-gradient(180deg, oklch(0 0 0 / 15%) 0%, oklch(0 0 0 / 55%) 45%, var(--background) 92%);
-  --gradient-card-glow: radial-gradient(120% 90% at 100% 0%, oklch(0.6 0.235 27 / 35%) 0%, transparent 60%);
-  --shadow-glow: 0 10px 30px -8px oklch(0.6 0.235 27 / 55%);
+  --gradient-card-glow: radial-gradient(120% 90% at 100% 0%, oklch(0.83 0.15 92 / 22%) 0%, transparent 60%);
+  --shadow-glow: 0 10px 30px -8px oklch(0.83 0.15 92 / 55%);
   --shadow-card: 0 8px 24px -12px oklch(0 0 0 / 80%);
-  --shadow-phone: 0 40px 120px -20px oklch(0.6 0.235 27 / 35%), 0 0 0 2px oklch(0.3 0 0);
+  --shadow-phone: 0 40px 120px -20px oklch(0.83 0.15 92 / 35%), 0 0 0 2px oklch(0.3 0 0);
 }
 
 @layer base {
@@ -156,9 +156,9 @@
 }
 
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 oklch(0.6 0.235 27 / 60%); }
-  70% { box-shadow: 0 0 0 10px oklch(0.6 0.235 27 / 0%); }
-  100% { box-shadow: 0 0 0 0 oklch(0.6 0.235 27 / 0%); }
+  0% { box-shadow: 0 0 0 0 oklch(0.83 0.15 92 / 60%); }
+  70% { box-shadow: 0 0 0 10px oklch(0.83 0.15 92 / 0%); }
+  100% { box-shadow: 0 0 0 0 oklch(0.83 0.15 92 / 0%); }
 }
 @utility animate-pulse-ring {
   animation: pulse-ring 2s infinite;

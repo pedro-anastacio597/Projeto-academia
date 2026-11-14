@@ -46,7 +46,7 @@ function Evaluations() {
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    {i === 0 && <span className="mb-2 inline-block rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">Mais recente</span>}
+                    {i === 0 && <span className="mb-2 inline-block rounded-full bg-primary text-primary-foreground px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider">Mais recente</span>}
                     <p className="font-display text-3xl leading-none tracking-wide">{fmtDate(e.date)}</p>
                     <p className="mt-1 text-sm text-muted-foreground">Prof. {e.professor}</p>
                   </div>

@@ -58,7 +58,7 @@ function PlanDetails() {
             <div className="mt-4 rounded-3xl border border-border bg-card p-5">
               <p className="font-display text-2xl tracking-wide">Modalidades</p>
               <div className="mt-3 flex items-center gap-3 rounded-2xl bg-surface p-3">
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-primary"><Dumbbell className="h-5 w-5" /></span>
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground"><Dumbbell className="h-5 w-5" /></span>
                 <div>
                   <p className="font-semibold">Musculação</p>
                   <p className="text-xs text-muted-foreground">Dias e horários livres</p>
