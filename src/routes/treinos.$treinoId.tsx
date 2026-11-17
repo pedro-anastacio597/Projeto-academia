@@ -1,10 +1,10 @@
-import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Check, CheckCircle2, Clock, Flag, Lightbulb, Play, SkipForward, Timer, Trophy, Weight } from "lucide-react";
+import { Check, CheckCircle2, Flag, Lightbulb, Play, SkipForward, Timer, Trophy, Weight } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { ExerciseCard, weightsLabel } from "@/components/ExerciseCard";
-import { BottomSheet, ConfirmModal, Modal, VideoModal } from "@/components/overlays";
+import { BottomSheet, ConfirmModal, VideoModal } from "@/components/overlays";
 import { Button } from "@/components/ui/button";
 import { getWorkout, type Exercise } from "@/lib/gym-data";
 import { actions, useCurrentUser } from "@/lib/store";
@@ -105,17 +105,27 @@ function WorkoutPage() {
     setRestUntil(null);
   };
 
+  if (summary) {
+    return (
+      <div className="flex h-full flex-col items-center justify-center bg-card-glow px-6 text-center">
+        <span className="grid h-24 w-24 place-items-center rounded-full bg-gradient-primary text-primary-foreground shadow-glow">
+          <Trophy className="h-12 w-12" />
+        </span>
+        <h1 className="mt-6 font-display text-5xl tracking-wide">Treino concluído!</h1>
+        <p className="mt-2 text-sm text-muted-foreground">Mandou bem. Mais um dia forjado.</p>
+        <div className="mt-10 w-full">
+          <Button variant="hero" size="xl" onClick={() => navigate({ to: "/treinos" })}>
+            Ir para treinos
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <AppShell
       title={workout.name}
       back
-      right={
-        started ? (
-          <span className="flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-3 py-1.5 font-display text-lg tracking-wider">
-            <Clock className="h-4 w-4" /> {formatClock(elapsed)}
-          </span>
-        ) : undefined
-      }
       footer={
         started ? (
           <Button variant="hero" size="xl" onClick={() => (completed.length < total ? setConfirmFinish(true) : finish())}>
@@ -209,24 +219,6 @@ function WorkoutPage() {
             confirmLabel="Finalizar"
           />
 
-          <Modal open={!!summary} onClose={() => navigate({ to: "/inicio" })} showClose={false}>
-            {summary && (
-              <div className="bg-card-glow p-6 text-center">
-                <span className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-gradient-primary text-primary-foreground shadow-glow"><Trophy className="h-8 w-8" /></span>
-                <h3 className="mt-4 font-display text-4xl tracking-wide">Treino concluído!</h3>
-                <p className="text-sm text-muted-foreground">Mandou bem. Mais um dia forjado.</p>
-                <div className="mt-5 grid grid-cols-3 gap-2">
-                  <Stat label="Duração" value={formatClock(summary.duration)} />
-                  <Stat label="Exercícios" value={`${summary.done}/${total}`} />
-                  <Stat label="Volume" value={`${summary.volume.toLocaleString("pt-BR")}kg`} />
-                </div>
-                <div className="mt-6 grid gap-2">
-                  <Button variant="hero" size="xl" onClick={() => navigate({ to: "/inicio" })}>Voltar ao início</Button>
-                  <Link to="/historico" className="py-2 text-sm font-semibold text-primary">Ver histórico</Link>
-                </div>
-              </div>
-            )}
-          </Modal>
         </div>
       )}
     </AppShell>
